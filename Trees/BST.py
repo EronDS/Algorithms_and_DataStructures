@@ -73,13 +73,69 @@ class BST:
             if x == curr.value: return True
             return False
     
+    def get_parent(self,element):
+        ''' Helper function (1) to remove_element (remove given element operation)'''
+        curr = self.root
+        parent = curr
+        if curr == None:return(None,None)
+        while curr:
+            if element > curr.value:
+                parent = curr
+                curr = curr.right
+            if element < curr.value:
+                parent = curr
+                curr = curr.left
+            if element == curr.value:
+                return (parent,curr)
+    def get_children(self,node):
+        ''' Helper function (2) of remove_element (remove given element operation)'''
+        no_children = 0 
+        if node.left and node.right: 
+            no_children = 2
+            return no_children
+        if node.right or node.left:
+            no_children = 1
+            return no_children
+        return no_children
+
+    def remove_element(self,element):
+        '''Remove Operation'''
+        if self.root.value == element:
+            t1 = self.root.right.left
+            t2 = self.root.left
+            self.root = self.root.right
+            self.root.right.left = t1
+            self.root.left = t2
+            return
+        parent,node = self.get_parent(element=element)
+        if parent is None and node is None: return False
+        children = self.get_children(node)
+        if children == 0:
+            if parent:
+                if parent.right: parent.right = None
+                elif parent.left: parent.left = None
+                else: self.root = None
+        if children == 1:
+            if node.left: new_node = node.left
+            if node.right: new_node = node.right
+            if parent.left == node: parent.left=new_node
+            if parent.right == node: parent.right=new_node
+        
+        if children == 2:
+            if node.left: new_node = node.left
+            parent.left = new_node
+        return
+        
 
         
         
 
 bst = BST(10)
-bst.insert(20)
-bst.insert(30)
-bst.insert(2)
 bst.insert(5)
-
+bst.insert(4)
+bst.insert(7)
+bst.insert(20)
+bst.insert(15)
+bst.insert(22)
+bst.remove_element(10)
+bst.in_order_traversal()
