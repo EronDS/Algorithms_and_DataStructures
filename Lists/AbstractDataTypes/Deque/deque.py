@@ -55,23 +55,4 @@ class Deque:
             self.tail = self.tail.prev
             self.tail.next = None
 
-    
-deque = Deque(1)
-deque.frontTraversal()
-deque.addFront(2)
-deque.frontTraversal()
-deque.addFront(3)
-deque.frontTraversal()
-
-deque.addFront(5)
-deque.frontTraversal()
-deque.peekFront()
-deque.removeFront()
-deque.frontTraversal()
-deque.backTraversal()
-
-deque.addBack(10)
-deque.frontTraversal()
-deque.removeBack()
-deque.frontTraversal()
-deque.backTraversal()
+  
