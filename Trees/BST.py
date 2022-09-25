@@ -1,4 +1,5 @@
-# need to implement remove operation and annotate
+# implement balance funtion and cleaning (self.nodes())
+import copy
 
 class Node:
     def __init__(self,x:int or float):
@@ -10,6 +11,7 @@ class Node:
 class BST:
     def __init__(self,x):
         self.root = Node(x)
+        self.nodes = [] 
     
     def insert(self,new_element):
         curr = self.root
@@ -26,30 +28,37 @@ class BST:
                     return
         return False
     
+    def clear(self): self.nodes = [] 
+    
     def post_order_traversal(self, node = None):
         'LRV traversal'
         if node == None: curr = self.root
         if node != None: curr = node
         if curr.left != None: self.post_order_traversal(curr.left)
         if curr.right != None: self.post_order_traversal(curr.right)
-        if curr: print(curr.value)
-        return
+        if curr: self.nodes.append(curr.value)
+        list_nodes = copy.copy(self.nodes)
+        return list_nodes
+
     def in_order_traversal(self,node = None):
         'LVR traversal'
         if node == None: curr = self.root
         if node != None: curr = node
         if curr.left: self.in_order_traversal(curr.left)
-        if curr: print(curr.value)
+        if curr: self.nodes.append(curr.value)
         if curr.right: self.in_order_traversal(curr.right)
-        return
+        list_nodes = copy.copy(self.nodes)
+        return list_nodes
 
     def pre_order_traversal(self,node = None):
         'VLR traversal'
         if node == None: curr = self.root
         if node != None: curr = node
-        if curr: print(curr.value)
+        if curr: self.nodes.append(curr.value)
         if curr.left: self.pre_order_traversal(curr.left)
         if curr.right: self.pre_order_traversal(curr.right)
+        list_nodes = copy.copy(self.nodes)
+        return list_nodes
 
     def find_minimum_node(self):
         '''traverse left until the end of the subtree is found'''
@@ -125,3 +134,6 @@ class BST:
             if node.left: new_node = node.left
             parent.left = new_node
         return
+    
+
+
