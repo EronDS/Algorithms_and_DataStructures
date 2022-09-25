@@ -125,17 +125,3 @@ class BST:
             if node.left: new_node = node.left
             parent.left = new_node
         return
-        
-
-        
-        
-
-bst = BST(10)
-bst.insert(5)
-bst.insert(4)
-bst.insert(7)
-bst.insert(20)
-bst.insert(15)
-bst.insert(22)
-bst.remove_element(10)
-bst.in_order_traversal()
