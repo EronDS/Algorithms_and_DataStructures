@@ -9,22 +9,28 @@ class Node:
 
 
 class BST:
-    def __init__(self,x):
-        self.root = Node(x)
-        self.nodes = [] 
+    def __init__(self):
+        self.root = None
+        self.nodes = []
+        self.size = 0
     
     def insert(self,new_element):
+        if self.root == None: 
+            self.root = Node(new_element)
+            self.size += 1
         curr = self.root
         while curr:
             if new_element >= curr.value:
                 if curr.right: curr = curr.right
                 else:
                     curr.right = Node(new_element)
+                    self.size += 1
                     return
             if new_element < curr.value:
                 if curr.left: curr = curr.left
                 else:
                     curr.left = Node(new_element)
+                    self.size += 1 
                     return
         return False
     
@@ -32,6 +38,7 @@ class BST:
     
     def post_order_traversal(self, node = None):
         'LRV traversal'
+        if self.size == 0: return False
         if node == None: curr = self.root
         if node != None: curr = node
         if curr.left != None: self.post_order_traversal(curr.left)
@@ -42,6 +49,7 @@ class BST:
 
     def in_order_traversal(self,node = None):
         'LVR traversal'
+        if self.size == 0: return False
         if node == None: curr = self.root
         if node != None: curr = node
         if curr.left: self.in_order_traversal(curr.left)
@@ -52,6 +60,7 @@ class BST:
 
     def pre_order_traversal(self,node = None):
         'VLR traversal'
+        if self.size == 0: return False
         if node == None: curr = self.root
         if node != None: curr = node
         if curr: self.nodes.append(curr.value)
@@ -135,5 +144,16 @@ class BST:
             parent.left = new_node
         return
     
+    def clear(self):
+        self.root = None
+        self.empty()
+        bst = BST()
+        return bst
+    def empty(self):
+        self.size = 0 
+        return
+    def get_size(self): return self.size
+
+
 
 
