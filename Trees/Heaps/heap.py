@@ -34,6 +34,11 @@ class MinHeap:
         self.size = 0
     
     def insert(self,new_element):
+        ''' 
+        insert node at the end -> O(1)
+        heapify -> O(logn)
+        '''
+        
         self.heap.append(new_element)
         self.size += 1
         self.percolateUp(self.size) # last leaf inserted (left to right)
@@ -48,12 +53,16 @@ class MinHeap:
                 self.heap[i] = temp
             i = i // 2 # change current node to parent (and check heap property again)
     def get_minChild(self,i):
+        ''' get index of minimum value (key) children -- comparing right with left children if existant. 
+        If right children not existant, take the left children,
+         else stop the percolation (while loop at percolateDown function)'''
         if self.size < 2* i+1: return 2*i
         if self.size >= 2*i+1:
             if self.heap[2*i+1] < self.heap[2*i]:
                 return 2*i+1
             else: return 2*i
     def percolateDown(self,i):
+        ''' helper function to delete Minimum node value (root) '''
         while 2*i <= self.size:
             minChild = self.get_minChild(i)
             if self.heap[i] > self.heap[minChild]:
@@ -63,6 +72,12 @@ class MinHeap:
             i = minChild
     
     def deleteMin(self):
+        ''' 
+        remove the minimum node -- 
+        Access at constant time -> O(1)
+        Percolate Down -> O(Logn)
+        '''
+
         head = self.heap[1]
         self.heap[1] = self.heap[self.size]
         self.heap.pop()
